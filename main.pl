@@ -3,15 +3,18 @@ use 5.12.0;
 use JSON;
 use Furl;
 use File::Slurp qw[ read_file write_file ];
+
+binmode STDOUT, ':utf8'; $|++;
+
+my $ascii_only = 1;
 my $furl = Furl->new( agent => 'MyGreatUA/2.0', timeout => 10,);
+
 my $channel = shift or die "Usage: perl $0 livehouse_channel_name";
 my $webhook = read_file('webhook.url') or die "Please set up incoming webhook and store it in a 'webhook.url' file";
-chomp $webhook;
 my $lastFetch = -e "$channel.lastFetch" ? read_file("$channel.lastFetch") : '0';
 my $lastMessage = -e "$channel.lastMessage" ? read_file("$channel.lastMessage") : '';
-my $ascii_only = 1;
-binmode STDOUT, ':utf8';
-$|++;
+chomp($webhook, $lastFetch, $lastMessage);
+
 while (1) {
     my $ts = time;
     print "$ts\r";
