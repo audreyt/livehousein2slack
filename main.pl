@@ -32,7 +32,7 @@ while (1) {
             $emoji = ':question:';
         }
         elsif ($msg->{text} =~ /喜歡|愛/) {
-            $emoji = ':heart';
+            $emoji = ':heart:';
         }
         elsif ($msg->{text} =~ /認為|想|覺得/) {
             $emoji = ':thought_balloon:';
