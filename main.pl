@@ -41,7 +41,10 @@ while (1) {
             $emoji = ':thumbsup:';
         }
         elsif ($msg->{text} =~ /噓|\-1|\-\-/) {
-            $emoji = ':thumbsdown';
+            $emoji = ':thumbsdown:';
+        }
+        elsif ($msg->{text} =~ /[\(（].*誤/) {
+            $emoji = ':interrobang:';
         }
         elsif ($msg->{text} =~ /^\s*我/) {
             $emoji = ':hand:';
