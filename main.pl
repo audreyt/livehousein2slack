@@ -40,7 +40,7 @@ while (1) {
         elsif ($msg->{text} =~ /讚|\+1|\+\+|贊/) {
             $emoji = ':thumbsup:';
         }
-        elsif ($msg->{text} =~ /噓|\-1|\-\-/) {
+        elsif ($msg->{text} =~ /噓/) {
             $emoji = ':thumbsdown:';
         }
         elsif ($msg->{text} =~ /[\(（].*誤/) {
