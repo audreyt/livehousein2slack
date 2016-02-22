@@ -11,7 +11,7 @@ my $ascii_only = 1;
 my $furl = Furl->new( agent => 'MyGreatUA/2.0', timeout => 10,);
 
 my $channel = shift or die "Usage: perl $0 livehouse_channel_name";
-my $webhook = read_file('webhook.url') or die "Please set up incoming webhook and store it in a 'webhook.url' file";
+my $webhook = read_file('webhook.url') or die "For slack integration, please set up incoming webhook and store it in a 'webhook.url' file\n" if -e 'webhook.url';
 my $lastFetch = -e "$channel.lastFetch" ? read_file("$channel.lastFetch") : '0';
 my $lastMessage = -e "$channel.lastMessage" ? read_file("$channel.lastMessage") : '';
 chomp($webhook, $lastFetch, $lastMessage);
@@ -59,7 +59,7 @@ while (1) {
             }->{$msg->{sourceType}} || ':question:',
             text => $msg->{text}
         }, { ascii => $ascii_only });
-        $furl->post($webhook, [], [ payload => $payload ]);
+        $furl->post($webhook, [], [ payload => $payload ]) if $webhook;
         $lastMessage = $msg->{createdDate};
         write_file("$channel.lastMessage" => $lastMessage);
     }
